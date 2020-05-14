@@ -1,13 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class TestConnectedGraph {
+public class TestNodeDistribution {
 
 
-    static Graph read(String fileName) {
+    private static Graph read(String fileName) {
         Graph graph = new Graph();
 
         try{
@@ -37,10 +36,17 @@ public class TestConnectedGraph {
 
     public static void main(String[] args) {
 
-        Graph connectedGraph = TestConnectedGraph.read("testConnectedGraph");
+        Graph connectedGraph = TestNodeDistribution.read("testConnectedGraph");
         HashMap<Integer, Integer> degreeMap = connectedGraph.degreeDistribution();
 
         degreeMap.forEach((k,v) -> System.out.println(k + ": " + v));
+
+        System.out.println(" ");
+
+        Graph disConnectedGraph = TestNodeDistribution.read("testDisconnectedGraph");
+        HashMap<Integer, Integer> degreeMapD = disConnectedGraph.degreeDistribution();
+
+        degreeMapD.forEach((k,v) -> System.out.println(k + ": " + v));
 
     }
 
