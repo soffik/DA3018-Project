@@ -3,6 +3,7 @@ import java.util.LinkedList;
 class Vertex {
 
     private Integer vertexLabel;
+    private boolean visited = false;
     private LinkedList<Vertex> neighbors = new LinkedList<>();
 
     Vertex(int label) {
@@ -19,6 +20,14 @@ class Vertex {
 
     public LinkedList<Vertex> getNeighbors() {
         return neighbors;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public boolean notVisited() {
+        return !visited;
     }
 
     public int degree() {

@@ -51,5 +51,32 @@ public class Graph {
     }
 
 
+    public int numberOfComponents() {
+
+        int numberOfComponents = 0;
+
+        vertexMap.forEach((key, value) -> value.setVisited(false));
+
+        for (Vertex vertex: vertexMap.values()) {
+            if (vertex.notVisited()) {
+                visit(vertex);
+                numberOfComponents += 1;
+            }
+        }
+
+
+        return numberOfComponents;
+    }
+
+    private void visit(Vertex vertex) {
+
+        vertex.setVisited(true);
+        for(Vertex u: vertex.getNeighbors()) {
+            if (u.notVisited())
+                visit(u);
+        }
+    }
+
+
 
 }

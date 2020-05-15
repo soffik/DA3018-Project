@@ -43,4 +43,20 @@ public class GraphTest {
         Assert.assertTrue(degreeMap.get(4)==2);
         Assert.assertTrue(degreeMap.get(6)==1);
     }
+
+    @Test
+    public void testNumberOfComponentsForConnectedGraph() {
+
+        Graph graph = ReadGraphFile.read("testConnectedGraph");
+        Assert.assertTrue(graph.numberOfComponents()==1);
+
+    }
+
+    @Test
+    public void testNumberOfComponentsForDisconnectedGraph() {
+
+        Graph graph = ReadGraphFile.read("testDisconnectedGraph");
+        Assert.assertTrue(graph.numberOfComponents()==3);
+
+    }
 }
