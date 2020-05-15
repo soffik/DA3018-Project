@@ -51,30 +51,38 @@ public class Graph {
     }
 
 
-    public int numberOfComponents() {
+    public ArrayList<Integer> componentDistribution() {
 
-        int numberOfComponents = 0;
+        ArrayList<Integer> toReturn = new ArrayList<>();
 
-        vertexMap.forEach((key, value) -> value.setVisited(false));
+        vertexMap.forEach((key, value) -> value.setVisited(false));  // set all vertices to not visited
 
         for (Vertex vertex: vertexMap.values()) {
+
+            int compSize = 0;  // size of each component
+
             if (vertex.notVisited()) {
-                visit(vertex);
-                numberOfComponents += 1;
+                compSize = visit(vertex, compSize);
+                toReturn.add(compSize);
             }
         }
 
-
-        return numberOfComponents;
+        return toReturn;
     }
 
-    private void visit(Vertex vertex) {
+    private int visit(Vertex vertex, int currentSize) {
 
         vertex.setVisited(true);
+        currentSize += 1;
+
         for(Vertex u: vertex.getNeighbors()) {
-            if (u.notVisited())
-                visit(u);
+            if (u.notVisited()) {
+                currentSize = visit(u, currentSize);
+            }
         }
+
+        return currentSize;
+
     }
 
 

@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraphTest {
@@ -45,18 +46,28 @@ public class GraphTest {
     }
 
     @Test
-    public void testNumberOfComponentsForConnectedGraph() {
+    public void testNumberOfComponentsAndComponentDistributionForConnectedGraph() {
 
         Graph graph = ReadGraphFile.read("testConnectedGraph");
-        Assert.assertTrue(graph.numberOfComponents()==1);
+        ArrayList<Integer> graphArray = graph.componentDistribution();
+
+        Assert.assertTrue(graphArray.size()==1);  // number of components: 1
+
+        Assert.assertTrue(graphArray.contains(10)); // size of component is 10
 
     }
 
     @Test
-    public void testNumberOfComponentsForDisconnectedGraph() {
+    public void testNumberOfComponentsAndComponentDistributionForDisconnectedGraph() {
 
         Graph graph = ReadGraphFile.read("testDisconnectedGraph");
-        Assert.assertTrue(graph.numberOfComponents()==3);
+        ArrayList<Integer> graphArray = graph.componentDistribution();
+
+        Assert.assertTrue(graphArray.size()==3);  // number of components: 3
+
+        Assert.assertTrue(graphArray.contains(4));
+        Assert.assertTrue(graphArray.contains(5));
+        Assert.assertTrue(graphArray.contains(7));
 
     }
 }
