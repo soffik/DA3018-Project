@@ -51,11 +51,13 @@ public class Graph {
     }
 
 
-    public ArrayList<Integer> componentDistribution() {
+    public HashMap<Integer, Integer> componentDistribution() {
 
-        ArrayList<Integer> toReturn = new ArrayList<>();
+        HashMap<Integer, Integer> toReturn = new HashMap<>();
 
         vertexMap.forEach((key, value) -> value.setVisited(false));  // set all vertices to not visited
+
+        int numOfComponents = 0;
 
         for (Vertex vertex: vertexMap.values()) {
 
@@ -63,9 +65,17 @@ public class Graph {
 
             if (vertex.notVisited()) {
                 compSize = visit(vertex, compSize);
-                toReturn.add(compSize);
+                if (!toReturn.containsKey(compSize))
+                    toReturn.put(compSize, 1);
+                else {
+                    Integer oldValue = toReturn.get(compSize);
+                    toReturn.put(compSize, oldValue+1);
+                }
+                numOfComponents += 1;
             }
         }
+
+        toReturn.put(-1, numOfComponents); // put number of components with key -1 since component sizes are positive.
 
         return toReturn;
     }
