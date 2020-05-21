@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class GraphTest {
 
-
     @Test
     public void testDegreeDistributionForConnectedGraph() {
         Graph graph = ReadGraphFile.read("testConnectedGraph");
