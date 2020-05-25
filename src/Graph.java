@@ -52,47 +52,44 @@ public class Graph {
 
 
     public HashMap<Integer, Integer> componentDistribution() {
-
         HashMap<Integer, Integer> toReturn = new HashMap<>();
 
         vertexMap.forEach((key, value) -> value.setVisited(false));  // set all vertices to not visited
-
-        int numOfComponents = 0;
 
         for (Vertex vertex: vertexMap.values()) {
 
             int compSize = 0;  // size of each component
 
+            LinkedList<Vertex> queue = new LinkedList<>();
             if (vertex.notVisited()) {
-                compSize = visit(vertex, compSize);
+                queue.add(vertex);
+                vertex.setVisited(true);
+                compSize += 1;
+            }
+
+            while(!queue.isEmpty()) {
+                Vertex v = queue.poll(); // return and remove first element
+                for (Vertex u: v.getNeighbors()) {
+                    if (u.notVisited()) {
+                        queue.add(u);
+                        u.setVisited(true);
+                        compSize += 1;
+                    }
+                }
+            }
+
+            if (compSize > 0) { // only add if we have found a new component
                 if (!toReturn.containsKey(compSize))
                     toReturn.put(compSize, 1);
                 else {
                     Integer oldValue = toReturn.get(compSize);
                     toReturn.put(compSize, oldValue+1);
                 }
-                numOfComponents += 1;
             }
-        }
 
-        toReturn.put(-1, numOfComponents); // put number of components with key -1 since component sizes are positive.
+        }
 
         return toReturn;
-    }
-
-    private int visit(Vertex vertex, int currentSize) {
-
-        vertex.setVisited(true);
-        currentSize += 1;
-
-        for(Vertex u: vertex.getNeighbors()) {
-            if (u.notVisited()) {
-                currentSize = visit(u, currentSize);
-            }
-        }
-
-        return currentSize;
-
     }
 
 

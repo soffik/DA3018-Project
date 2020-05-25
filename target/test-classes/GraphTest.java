@@ -96,11 +96,14 @@ public class GraphTest {
 
         HashMap<Integer, Integer> compSizeMap = graph.componentDistribution();
 
-        Assert.assertTrue(compSizeMap.size()==2);  // one component and component size
+        Assert.assertTrue(compSizeMap.size()==1);  // one component
 
         // check number of components:
-        Assert.assertTrue(compSizeMap.containsKey(-1)); //
-        Assert.assertTrue(compSizeMap.get(-1)==1);  // only one component
+        int size = 0;
+        for (Integer i: compSizeMap.values())
+            size += i;
+
+        Assert.assertTrue(size==1);
 
         Assert.assertTrue(compSizeMap.containsKey(10)); // size of component is 10
         Assert.assertTrue(compSizeMap.get(10)==1);  // only one components has size 10
@@ -113,11 +116,14 @@ public class GraphTest {
         Graph graph = ReadGraphFile.read("testDisconnectedGraph");
         HashMap<Integer, Integer> compSizeMap = graph.componentDistribution();
 
-        Assert.assertTrue(compSizeMap.size()==4);
+        Assert.assertTrue(compSizeMap.size()==3);
 
         // check number of components:
-        Assert.assertTrue(compSizeMap.containsKey(-1));
-        Assert.assertTrue(compSizeMap.get(-1)==3);  // 3 components
+        int size = 0;
+        for (Integer i: compSizeMap.values())
+            size += i;
+
+        Assert.assertTrue(size==3);
 
         Assert.assertTrue(compSizeMap.containsKey(4));
         Assert.assertTrue(compSizeMap.get(4)==1);
@@ -136,11 +142,14 @@ public class GraphTest {
         Graph graph = ReadDataFile.readFile("testFile1.txt");
         HashMap<Integer, Integer> compSizeMap = graph.componentDistribution();
 
-        Assert.assertTrue(compSizeMap.size()==5);
+        Assert.assertTrue(compSizeMap.size()==4);
 
         // check number of components:
-        Assert.assertTrue(compSizeMap.containsKey(-1)); //
-        Assert.assertTrue(compSizeMap.get(-1)==4);  // 4 components
+        int size = 0;
+        for (Integer i: compSizeMap.values())
+            size += i;
+
+        Assert.assertTrue(size==4);
 
         Assert.assertTrue(compSizeMap.containsKey(2));
         Assert.assertTrue(compSizeMap.get(2)==1);
@@ -162,11 +171,14 @@ public class GraphTest {
         Graph graph = ReadDataFile.readFile("testFile2.txt");
         HashMap<Integer, Integer> compSizeMap = graph.componentDistribution();
 
-        Assert.assertTrue(compSizeMap.size()==2);
+        Assert.assertTrue(compSizeMap.size()==1);
 
         // check number of components:
-        Assert.assertTrue(compSizeMap.containsKey(-1)); //
-        Assert.assertTrue(compSizeMap.get(-1)==20);  // 20 components
+        int size = 0;
+        for (Integer i: compSizeMap.values())
+            size += i;
+
+        Assert.assertTrue(size==20);
 
         Assert.assertTrue(compSizeMap.containsKey(2));  // all components has size 2
         Assert.assertTrue(compSizeMap.get(2)==20);
@@ -179,11 +191,15 @@ public class GraphTest {
         Graph graph = ReadDataFile.readFile("testFile3.txt");
         HashMap<Integer, Integer> compSizeMap = graph.componentDistribution();
 
-        Assert.assertTrue(compSizeMap.size()==4);
+        Assert.assertTrue(compSizeMap.size()==3);
 
         // check number of components:
-        Assert.assertTrue(compSizeMap.containsKey(-1)); //
-        Assert.assertTrue(compSizeMap.get(-1)==6);  // 6 components
+        // check number of components:
+        int size = 0;
+        for (Integer i: compSizeMap.values())
+            size += i;
+
+        Assert.assertTrue(size==6);
 
         Assert.assertTrue(compSizeMap.containsKey(2));
         Assert.assertTrue(compSizeMap.get(2)==2);
