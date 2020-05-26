@@ -1,0 +1,2 @@
+Number of nodes: 8084469
+Number of components: 961874

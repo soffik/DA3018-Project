@@ -19,21 +19,29 @@ public class Main {
 
             File degreeFile = new File("result/d_" + args[0]);  // containing result of degree distribution
             File compFile = new File("result/c_" + args[0]); // containing result of comp-size distribution
+            File numNodeAndComp = new File("result/nrNodesAndComps.txt"); // containing result of comp-size distribution
 
             BufferedWriter bfDegree = null;
             BufferedWriter bfComp = null;
+            BufferedWriter bfNum = null;
+
+            int numberOfNodes = 0;
+            int numberOfComponents = 0;
 
             try{
 
                 //create new BufferedWriter for the output file
                 bfDegree = new BufferedWriter( new FileWriter(degreeFile) );
                 bfComp = new BufferedWriter( new FileWriter(compFile) );
+                bfNum = new BufferedWriter( new FileWriter(numNodeAndComp) );
 
                 //iterate map entries
                 for(Map.Entry<Integer, Integer> entry : degreeMap.entrySet()){
 
                     //put key and value separated by a space
                     bfDegree.write( entry.getKey() + " " + entry.getValue() );
+
+                    numberOfNodes += entry.getValue();
 
                     //new line
                     bfDegree.newLine();
@@ -44,12 +52,19 @@ public class Main {
                     //put key and value separated by a space
                     bfComp.write( entry.getKey() + " " + entry.getValue() );
 
+                    numberOfComponents += entry.getValue();
+
                     //new line
                     bfComp.newLine();
                 }
 
+                bfNum.write("Number of nodes: " + numberOfNodes);
+                bfNum.newLine();
+                bfNum.write("Number of components: " + numberOfComponents);
+
                 bfDegree.flush();
                 bfComp.flush();
+                bfNum.flush();
 
             }catch(IOException e){
                 e.printStackTrace();
@@ -58,6 +73,7 @@ public class Main {
                 try{
                     bfDegree.close();
                     bfComp.close();
+                    bfNum.close();
                 } catch(Exception e){
                     e.printStackTrace();
                 }
