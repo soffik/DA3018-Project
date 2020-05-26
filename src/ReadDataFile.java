@@ -42,7 +42,10 @@ public class ReadDataFile {
         } catch (Exception exc) {
             System.err.println(exc.getMessage());
         } finally {
-            scanner.close();
+
+            if (scanner != null) {
+                scanner.close();
+            }
         }
 
         return graph;

@@ -19,7 +19,7 @@ public class Main {
 
             File degreeFile = new File("result/d_" + args[0]);  // containing result of degree distribution
             File compFile = new File("result/c_" + args[0]); // containing result of comp-size distribution
-            File numNodeAndComp = new File("result/nrNodesAndComps.txt"); // containing result of comp-size distribution
+            File numNodeAndComp = new File("result/nrNodesAndComps.txt");
 
             BufferedWriter bfDegree = null;
             BufferedWriter bfComp = null;
@@ -49,12 +49,10 @@ public class Main {
 
                 for(Map.Entry<Integer, Integer> entry : compSizeMap.entrySet()){
 
-                    //put key and value separated by a space
                     bfComp.write( entry.getKey() + " " + entry.getValue() );
 
                     numberOfComponents += entry.getValue();
 
-                    //new line
                     bfComp.newLine();
                 }
 
@@ -67,15 +65,21 @@ public class Main {
                 bfNum.flush();
 
             }catch(IOException e){
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }finally{
 
                 try{
-                    bfDegree.close();
-                    bfComp.close();
-                    bfNum.close();
-                } catch(Exception e){
-                    e.printStackTrace();
+                    if (bfDegree != null) {
+                        bfDegree.close();
+                    }
+                    if (bfComp != null) {
+                        bfComp.close();
+                    }
+                    if (bfNum != null) {
+                        bfNum.close();
+                    }
+                } catch(IOException e){
+                    System.err.println(e.getMessage());
                 }
             }
 
