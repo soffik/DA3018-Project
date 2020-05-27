@@ -12,20 +12,20 @@ tail -n 10 overlaps.m4
 # awk '{if ($7-$6!=$8) print $1" "$2" "$6" "$7" "$8" "$10" "$11" "$12}' overlaps.m4 > newFile.txt
 
 # combined (new file only has relevant columns):
-awk '{if ($7-$6!=$8 && $11-$10!=$12) print $1" "$2" "$6" "$7" "$8" "$10" "$11" "$12}' overlaps.m4 > dataFile.txt
+awk '{if ($7-$6!=$8 && $11-$10!=$12) print $1" "$2" "$6" "$7" "$8" "$10" "$11" "$12}' overlaps.m4 > fixedOverlaps.txt
 
 # Compare number of rows in original data file and new data file:
-wc -l overlaps.m4 dataFile.txt
+wc -l overlaps.m4 fixedOverlaps.txt
 
 # to get small test files, with only the first two columns:
-head -n 20 dataFile.txt | awk '{print $1 " " $2}' > testFile1.txt
+head -n 20 fixedOverlaps.txt | awk '{print $1 " " $2}' > testFile1.txt
 
-tail -n 20 dataFile.txt | awk '{print $1 " " $2}' > testFile2.txt
+tail -n 20 fixedOverlaps.txt | awk '{print $1 " " $2}' > testFile2.txt
 
-head -n 100 dataFile.txt | tail -n 20 | awk '{print $1 " " $2}' > testFile3.txt
+head -n 100 fixedOverlaps.txt | tail -n 20 | awk '{print $1 " " $2}' > testFile3.txt
 
 # To see that all files has 20 rows and 40 words
 wc -lw testFile?.txt
 
 # To fix so data file only contains the first two columns
-cat dataFile.txt | awk '{print $1 " " $2}' > dataFile.txt
+cat fixedOverlaps.txt | awk '{print $1 " " $2}' > dataFile.txt
