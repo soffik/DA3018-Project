@@ -1,4 +1,5 @@
 # DA3018-Project
+Name: Sofia Ayata Karbin
 
 ## Assignment
 
